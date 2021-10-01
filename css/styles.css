@@ -3618,6 +3618,7 @@ textarea.form-control-lg {
     right: 0;
     left: auto;
   }
+  
 }
 @media (min-width: 992px) {
   .dropdown-menu-lg-start {
@@ -4057,6 +4058,7 @@ textarea.form-control-lg {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  align-items: center;
 }
 .navbar-nav .nav-link {
   padding-right: 0;
@@ -4075,6 +4077,9 @@ textarea.form-control-lg {
   flex-basis: 100%!important;
   flex-grow: 1!important;
   align-items: center;
+  z-index: 1000;
+  background-color: #F8F9FA;
+  border-radius:2%;
 }
 
 .navbar-toggler {
@@ -4086,6 +4091,7 @@ textarea.form-control-lg {
   border-radius: 0.25rem;
   transition: box-shadow 0.15s ease-in-out;
 }
+
 @media (prefers-reduced-motion: reduce) {
   .navbar-toggler {
     transition: none;
