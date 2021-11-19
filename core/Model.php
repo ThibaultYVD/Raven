@@ -1,7 +1,4 @@
 <?php
-
-
-
 class Model
 {
     protected $table;
@@ -34,22 +31,22 @@ class Model
         $requete->execute();
         $resultats = $requete->fetchAll(PDO::FETCH_OBJ);
         //var_dump($resultats);
-        return $resultats;
+        return $resultats[0];
     }
 
     public function update($pdo, $data)
     {
         $sql = "UPDATE $this->table SET";
         foreach ($data as $k => $v) {
-            if ($k != 'id') {
-                $sql .= $k = $v;
+            if ($k != "id") {
+                $sql .= "$k = $v,";
             }
         }
         $sql = substr($sql, 0, -1);
         $sql .= " WHERE id=" . (int)$this->id;
         //var_dump($sql);
         $requete = $pdo->prepare($sql);
-        $requete->execute();
+        if ($requete->execute()) return true;
     }
 
     public function insert($pdo, $data)
@@ -71,14 +68,14 @@ class Model
         $sql .= ")";
         //var_dump($sql);
         $requete = $pdo->prepare($sql);
-        $requete->execute();
+        if ($requete->execute()) return true;
     }
 
     public function delete($pdo)
     {
         $sql = "DELETE FROM $this->table WHERE id=$this->id";
         $requete = $pdo->prepare($sql);
-        $requete->execute();
+        if ($requete->execute()) return true;
     }
 
     public function find($pdo, $data = array())
@@ -88,6 +85,7 @@ class Model
         $limit = "";
         $order = "";
         $join = "";
+        
         if (isset($data['condition'])) {
             $condition = $data['condition'];
         }
@@ -98,14 +96,13 @@ class Model
             $limit = "LIMIT " . $data['limit'];
         }
         if (isset($data['order'])) {
-            $order = "ORDER BY " .
-                $data['order'];
+            $order = "ORDER BY " . $data['order'];
         }
         if (isset($data['join'])) {
             $join = $data['join'];
         }
-        $sql = "SELECT $champs FROM $this->table $join WHERE $condition
-        $order $limit";
+
+        $sql = "SELECT $champs FROM $this->table $join WHERE $condition $order $limit";
         //var_dump($sql);
         $requete = $pdo->prepare($sql);
         $requete->execute();

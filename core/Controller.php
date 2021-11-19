@@ -2,7 +2,7 @@
 class Controller
 {
     protected $vars = array();
-    protected $layout ='template';
+    protected $layout = "template";
 
     protected function set($id)
     {
