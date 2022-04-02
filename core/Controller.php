@@ -8,7 +8,7 @@ class Controller
     {
         $this->vars = array_merge($this->vars, $id);
     }
-
+    
     protected function render($filename)
     {
         extract($this->vars);

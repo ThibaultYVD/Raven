@@ -1,17 +1,23 @@
 <div>
-    <div class="wrapper">
-        <form class="login">
-            <p class="title">S'inscrire</p>
-            <input type="text" placeholder="Pseudo" autofocus />
-            <i class="fa fa-user"></i>
-            <input type="password" placeholder="Mot de passe" />
-            <i class="fa fa-key"></i>
-            <a href="#">Mot de passe oublié ?</a>
-            <a class="" href="inscription.html">Pas encore inscrit ?</a>
-            <button>
-                <i class="spinner"></i>
-                <span class="state">Se connecter</span>
-            </button>
-        </form>
+  <h1><?= $connexion['titre'] ?></h1>
+
+  <!-- Connexion -->
+
+  
+  <form action="<?= WEBROOT ?>connexion" class="tm-contact-form" method="POST">
+    <div class="form-group">
+      <input type="text" id="connexion_pseudo" name="connexion_pseudo" class="form-control" placeholder="Pseudo" required />
+    </div>
+    <div class="form-group">
+      <input type="password" id="connexion_mdp" name="connexion_mdp" class="form-control" placeholder="Mot de passe" required />
+    </div>
+    <div class="tm-text-right">
+      <button type="submit" class="btn tm-btn tm-btn-big">
+        Se connecter
+      </button>
+    </div>
+  </form>
+  <div class="tm-text-right">
+      <a class="nav-link" href="<?= WEBROOT?>connexion/inscription" >S'inscire</a>
     </div>
 </div>

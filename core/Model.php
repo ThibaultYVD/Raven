@@ -3,11 +3,11 @@ class Model
 {
     protected $table;
     public $id;
-    protected static $pdo;
+    public static $pdo;
 
     public static function connexion()
     {
-        $bd = "banquesons";
+        $bd = "raven";
         $login = "root";
         $mdp = "";
         $pdo = new PDO("mysql:host = localhost;dbname=" . $bd, $login, $mdp);
@@ -25,12 +25,12 @@ class Model
         if ($shield == null) {
             $shield = "*";
         }
-        $sql = "SELECT $shield FROM $this->table WHERE id=" . $this->id;
-        //var_dump($sql);
+        $sql = "SELECT $shield FROM $this->table where id=" . $this->id;
+        //var_dump($sql);    
         $requete = $pdo->prepare("$sql");
         $requete->execute();
         $resultats = $requete->fetchAll(PDO::FETCH_OBJ);
-        //var_dump($resultats);
+        //var_dump($resultats); 
         return $resultats[0];
     }
 
@@ -53,27 +53,27 @@ class Model
     {
         $sql = "INSERT INTO $this->table (";
         foreach ($data as $k => $v) {
-            if ($k != 'id') {
-                $sql .= "$k, ";
+            if ($k != "id") {
+                $sql .= "$k,";
             }
         }
-        $sql = substr($sql, 0, 1);
-        $sql .= ") VALUES (";
+        $sql = substr($sql, 0, -1);
+        $sql .= ") VALUES(";
         foreach ($data as $k => $v) {
-            if ($k != 'id') {
+            if ($k != "id") {
                 $sql .= $v . ',';
             }
         }
         $sql = substr($sql, 0, -1);
         $sql .= ")";
-        //var_dump($sql);
+        var_dump($sql);
         $requete = $pdo->prepare($sql);
         if ($requete->execute()) return true;
     }
 
     public function delete($pdo)
     {
-        $sql = "DELETE FROM $this->table WHERE id=$this->id";
+        $sql = "DELETE FROM $this->table where id=$this->id";
         $requete = $pdo->prepare($sql);
         if ($requete->execute()) return true;
     }
@@ -85,7 +85,7 @@ class Model
         $limit = "";
         $order = "";
         $join = "";
-        
+
         if (isset($data['condition'])) {
             $condition = $data['condition'];
         }
@@ -102,7 +102,7 @@ class Model
             $join = $data['join'];
         }
 
-        $sql = "SELECT $champs FROM $this->table $join WHERE $condition $order $limit";
+        $sql = "SELECT $champs FROM $this->table $join WHERE $condition  $order $limit";
         //var_dump($sql);
         $requete = $pdo->prepare($sql);
         $requete->execute();

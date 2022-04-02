@@ -1,46 +1,26 @@
 <?php
-//var_dump($_GET['p']);
-if (isset($_GET['p']) && $_GET['p'] != '') {
-    $param = explode('/', $_GET['p']);
-    $controller = ucfirst($param[0]);
-    $action = isset($param[1]) ? $param[1] : 'index';
-    $id = isset($param[2]) ? $param[2] : null;
-    //var_dump($controller);
-    //var_dump($action);
-    //var_dump($id);
-} else {
-    $controller = 'Accueil';
-    $action = 'index';
-    $id = null;
-}
+//Panier ou connexion
+if (!isset($_SESSION)) session_start();
 
-
-
-// Constantes WEBROOT et ROOT pour mémoriser le chemin des fichiers
-
-//Affiche monsite/mvc
 define('WEBROOT', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
-
-//Affiche [chemin]/www/monsite/mvc
 define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
+//var_dump(WEBROOT);
+//var_dump(ROOT);
+require ROOT . '/core/Controller.php';
+require ROOT . '/core/Model.php';
 
-require ROOT . 'core/Controller.php';
-require ROOT . 'core/Model.php';
-
-//On appelle notre controller (la page)
-if (file_exists(ROOT . 'controller/' . $controller . '.php')) //On teste si le fichier existe
-{
-    //echo "le fichier existe";
-    require ROOT . 'controller/' . $controller . '.php';
+//var_dump($_GET['p']);
+if (isset($_GET['p'])) {
+    $param = explode('/', $_GET['p']);
+    $controller = file_exists(ROOT . 'controller/' . ucfirst($param[0]) . '.php') ? ucfirst($param[0]) : 'Accueil';
+   //var_dump($controller);
+    require ROOT . "/controller/$controller.php";
+    $action = isset($param[1]) && method_exists($controller, $param[1]) ? $param[1] : 'index';
+    //var_dump($action);
+    $id = isset($param[2]) ? $param[2] : null;
+    //var_dump($id);
     $controllerspec = new $controller();
-
-    if (method_exists($controllerspec, $action)) {
-        $controllerspec->$action($id);
-    } else {
-        echo "erreur";
-    }
-} else {
-    require ROOT.'view/error404/index.php';
+    //var_dump($controllerspec);
+    $controllerspec->$action($id);
+    //var_dump($controllerspec->$action($id));
 }
-?>
-
