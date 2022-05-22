@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <h1><?= $connexion['titre'] ?></h1>
   <?php
   if (isset($connexion['autre'])) {

@@ -1,5 +1,5 @@
 <!-- Vérifier si l'utilisateur est connecté -->
-<div>
+<div class="container">
     <h1><a href="<?= WEBROOT?>connexion/profil" style="color:grey;"><?= $connexion['titre_profil'] ?></a> </h1>
     <?php
     if(isset($connexion['autre'])) {
@@ -7,13 +7,15 @@
     }
     ?>
 
-    <h2>Voici le profil de <?= $_SESSION['utilisateur']['pseudo']; ?></h2>
-    <div>Quelques informations sur vous : </div>
     <ul>
-      <li>Votre adresse est : <?= $_SESSION ['utilisateur']['adresse'] ?></li>
-      <li>Votre code postale est : <?= $_SESSION ['utilisateur']['CP'] ?></li>
-      <li>Votre ville est : <?= $_SESSION ['utilisateur']['ville'] ?></li>
+      <li style="font-size: 1.2rem">Pseudo : <?= $_SESSION ['utilisateur']['pseudo'] ?></li>
+      <li style="font-size: 1.2rem">Adresse : <?= $_SESSION ['utilisateur']['adresse'] ?></li>
+      <li style="font-size: 1.2rem">Ville : <?= $_SESSION ['utilisateur']['ville'] ?></li>
+      <li style="font-size: 1.2rem">Code postale : <?= $_SESSION ['utilisateur']['CP'] ?></li>
     </ul>
+
+    <a href="<?= WEBROOT?>mescommandes/"><div>Vos dernières commandes : </div></a>
+
   </body>
 
 </div>

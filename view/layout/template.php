@@ -47,37 +47,26 @@
             <li class="nav-item">
               <a class="nav-link" href="<?= WEBROOT ?>accueil">Accueil</a>
             </li>
+            
             <li class="nav-item">
               <a class="nav-link" href="<?= WEBROOT ?>societe">A propos</a>
             </li>
-            <!--
-            
+
             <li class="nav-item">
-              <a class="nav-link" href="<?= WEBROOT ?>societe">Teams</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#!">Forums</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link" href="#!">Setup</a>
-            </li>
-            -->
-            <li class="nav-item">
-              <a class="nav-link" href="<?= WEBROOT ?>panier">Panier <span id="cart" class="badge red mx-2"></span></a>
+              <a class="nav-link" href="<?= WEBROOT ?>contacter">Contact</a>
             </li>
 
             <li class="nav-item">
               <?php if (!isset($_SESSION['utilisateur'])) echo '<a class="nav-link" href="' . WEBROOT . 'connexion">Connexion</a>';
               else {
-                echo '<a class="nav-link" href="' . WEBROOT . 'connexion/deconnexion">deconnexion</a><li class="nav-item">';
-                echo '<a class="nav-link" href="' . WEBROOT . 'connexion">profil</a>';
+                echo '<a class="nav-link" href="' . WEBROOT .'panier">Panier <span id="cart" class="badge red mx-2"></span></a><li class="nav-item">';
+                echo '<a class="nav-link" href="' . WEBROOT . 'connexion/deconnexion">Déconnexion</a><li class="nav-item">';
+                echo '<a class="nav-link" href="' . WEBROOT . 'connexion">Profil</a>';
+                
               }
               ?></a>
             </li>
-            <!--<li class="nav-item">
-              <a class="nav-link" href="<?= WEBROOT ?>contacter">Contact</a>
-            </li>-->
+            
           </ul>
         </div>
       </div>

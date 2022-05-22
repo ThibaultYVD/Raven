@@ -1,9 +1,9 @@
-<div>
+<div class="container">
   <h1><?= $connexion['titre'] ?></h1>
 
   <!-- Connexion -->
 
-  
+
   <form action="<?= WEBROOT ?>connexion" class="tm-contact-form" method="POST">
     <div class="form-group">
       <input type="text" id="connexion_pseudo" name="connexion_pseudo" class="form-control" placeholder="Pseudo" required />
@@ -18,6 +18,6 @@
     </div>
   </form>
   <div class="tm-text-right">
-      <a class="nav-link" href="<?= WEBROOT?>connexion/inscription" >S'inscire</a>
+      <a class="nav-link" href="<?= WEBROOT?>connexion/inscription" >S'inscrire</a>
     </div>
 </div>

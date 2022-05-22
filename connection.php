@@ -1,3 +1,3 @@
 <?php
 
-$connect = mysqli_connect("localhost", "root", "", "raven",);//Connection à la bdd
+$connect = mysqli_connect("localhost", "2022-raven", "123456", "2022-raven_");

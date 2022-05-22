@@ -19,7 +19,7 @@ $output .= "
 "; //Affiche le tableau
 
 if (!empty($_SESSION['mycart'])) { //Si le panier n'est pas vide
-
+  $_SESSION['commande'] = $_SESSION['mycart'] ;
   foreach ($_SESSION['mycart'] as $key => $value) {
 
     $output .= "
@@ -33,15 +33,9 @@ if (!empty($_SESSION['mycart'])) { //Si le panier n'est pas vide
              </td>
 		"; //Afficher les éléments du panier
 
-
-
     $total = $total + $value['quantity'] * $value['price']; //Calcul le prix total en fonction de la quantité et du prix unitaire
 
-
     $_SESSION['total_price'] = $total; //Affiche le total
-
-
-
   }
 
   $output .= "
@@ -49,17 +43,18 @@ if (!empty($_SESSION['mycart'])) { //Si le panier n'est pas vide
            <td></td>
            <td><b>Prix Total  : " . number_format($total, 2) . "€</b></td>
            <td><b></b></td>
-           <td><button class='btn btn-danger'>Passer commande</button></td>
+           <td><a href='commande'><button class='btn btn-danger passerCommande'>Passer commande</button><a></td>
            <td><button class='btn btn-danger clearall' id='" . $value['id'] . "'>Tout supprimer</button></td>
          </tr>
    
 	";
-
+  
 
 
   $to = count($_SESSION['mycart']);
 } else {
 }
+
 
 $data['da'] = $to;
 $data['out'] = $output;

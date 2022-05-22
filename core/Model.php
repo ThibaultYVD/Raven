@@ -7,9 +7,9 @@ class Model
 
     public static function connexion()
     {
-        $bd = "raven";
-        $login = "root";
-        $mdp = "";
+        $bd = "2022-raven_";
+        $login = "2022-raven";
+        $mdp = "123456";
         $pdo = new PDO("mysql:host = localhost;dbname=" . $bd, $login, $mdp);
         $pdo->exec('SET NAMES utf8');
         return $pdo;
@@ -66,7 +66,7 @@ class Model
         }
         $sql = substr($sql, 0, -1);
         $sql .= ")";
-        var_dump($sql);
+        //var_dump($sql);
         $requete = $pdo->prepare($sql);
         if ($requete->execute()) return true;
     }

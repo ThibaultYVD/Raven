@@ -5,7 +5,6 @@ class Connexion extends Controller
 
     public function index($id = null)
     {
-        //var_dump($_SESSION);
         if (isset($_SESSION['utilisateur'])) {
             //Vérifier si l'utilisateur est connecté
             $this->profil();
@@ -14,12 +13,36 @@ class Connexion extends Controller
             $pseudo = $_POST['connexion_pseudo'];
             $mdp = md5($_POST['connexion_mdp']);
             $laTable = Model::load('utilisateurs');
-            $array = array("condition" => "pseudo='" . $pseudo . "' and motdepasse='" . $mdp."'");
+            $array = array("condition" => "pseudo='" . $pseudo . "' and motdepasse='" . $mdp . "'");
             $utilisateur = $laTable->find($laTable->connexion(), $array);
             if (count($utilisateur) == 1) {
-                    $_SESSION['utilisateur']['pseudo'] = $pseudo;
-                    $_SESSION['utilisateur']['mdp'] = $mdp;
-                    var_dump($_SESSION);
+                try {
+                    // On se connecte à MySQL
+                    $bdd = new PDO('mysql:host=localhost;dbname=2022-raven', 'raven_', '123456');
+                } catch (Exception $e) {
+                    // En cas d'erreur, on affiche un message et on arrête tout
+                    die('Erreur : ' . $e->getMessage());
+                }
+
+                // Si tout va bien, on peut continuer
+                // On récupère tout le contenu de la table utilisateurs
+                $reponse = $bdd->query("SELECT * FROM utilisateurs");
+                // On affiche chaque entrée une à une
+                while ($donnees = $reponse->fetch()) {
+                    $cp = $donnees['CP'];
+                    $ville = $donnees['VILLE'];
+                    $adresse = $donnees['ADRESSE'];
+                }
+                $reponse->closeCursor(); // Termine le traitement de la requête
+
+
+                $_SESSION['utilisateur']['pseudo'] = $pseudo;
+                $_SESSION['utilisateur']['mdp'] = $mdp;
+                $_SESSION['utilisateur']['CP'] = $cp;
+                $_SESSION['utilisateur']['ville'] = $ville;
+                $_SESSION['utilisateur']['adresse'] = $adresse;
+
+
                 $this->profil();
             } else {
 
@@ -53,10 +76,8 @@ class Connexion extends Controller
             $adresse = $_POST['adresse'];
             $CP = $_POST['CP'];
             $ville = $_POST['ville'];
-            //var_dump($_POST['inscription_name']);
 
             $laTable = Model::load('utilisateurs');
-            //var_dump($laTable);
             $array = array(
                 "pseudo" => "'" . $pseudo . "'",
                 "email" => "'" . $email . "'",
@@ -76,9 +97,8 @@ class Connexion extends Controller
                 $_SESSION['utilisateur']['CP'] = $CP;
                 $_SESSION['utilisateur']['ville'] = $ville;
                 $resultat = true;
-              echo "yes";
             }
-            //var_dump($resultat);
+
             $laTable->deconnexion();
             $laTable = null;
             if ($resultat) {
@@ -92,13 +112,13 @@ class Connexion extends Controller
             $variable['connexion'] = array("titre" => "S'inscrire");
             $this->set($variable);
             $this->render("inscription");
-            // var_dump($this->vars);    
+
 
         }
     }
     public function modification($id = null)
     {
-        //var_dump($_POST);
+
         if (isset($_POST['modification_name'])) {
             $pseudo = $_POST['modification_pseudo'];
             $email = $_POST['modification_email'];
@@ -109,7 +129,7 @@ class Connexion extends Controller
             $array = array("champs" => "id", "condition" => "pseudo='" . $pseudo . "'");
             $utilisateur = $laTable->find($laTable->connexion(), $array);
             $laTable->id = $utilisateur[0]->id;
-            //var_dump($utilisateur[0]);
+
             $array = array(
                 "pseudo" => "'" . $pseudo . "'",
                 "email" => "'" . $email . "'"
@@ -121,7 +141,7 @@ class Connexion extends Controller
                 $_SESSION['utilisateurs']['pseudo'] = $pseudo;
                 $_SESSION['utilisateurs']['email'] = $email;
             }
-            //var_dump($resultat);
+
             $laTable->deconnexion();
             $laTable = null;
             if ($resultat) {
@@ -138,7 +158,7 @@ class Connexion extends Controller
 
     public function profil($id = null)
     {
-        //var_dump($_SESSION);
+    
         if (isset($_SESSION['utilisateur'])) {
             $variable['connexion'] = array("titre_profil" => "Mon profil");
             $this->set($variable);

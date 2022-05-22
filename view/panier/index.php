@@ -55,6 +55,8 @@
          });
       });
 
+
+
       $(document).on("click", ".clearall", function() { //Gère le bouton de suppression de tout les produit
          var id = $(this).attr("id"); //Récupère les id des produits a supprimer
 
@@ -73,8 +75,26 @@
             }
          });
       });
+
+
+      $(document).on("click", ".passerCommande", function() { //Gère le bouton de suppression de tout les produit
+
+
+         <?php
+
+
+         
+
+         ?>
+      });
+   </script>
+
+
    </script>
 
 </body>
+<script>
+
+</script>
 
 </html>
